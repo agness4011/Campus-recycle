@@ -1,42 +1,329 @@
-#root {
-  max-width: 1280px;
+/* CSS 변수를 사용하여 색상, 폰트 등 관리 */
+:root {
+  --primary-text-color: #111827;
+  --secondary-text-color: #6b7280;
+  --background-color: #ffffff;
+  --border-color: #e5e7eb;
+  --accent-color: #3b82f6;
+  --font-family: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui,
+    Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR",
+    "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+    sans-serif;
+}
+
+/* 기본 스타일 초기화 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--background-color);
+  color: var(--primary-text-color);
+}
+
+.container {
+  width: 100%;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 0 1.5rem;
+}
+
+/* Header.jsx */
+.header {
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 3rem;
+  width: 100%;
+}
+
+.header-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-logo {
+  font-size: 1.5rem;
+  font-weight: 800;
+  text-decoration: none;
+  color: var(--primary-text-color);
+}
+
+.header-menu {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+}
+
+.header-menu a {
+  text-decoration: none;
+  color: var(--secondary-text-color);
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.header-menu a:hover {
+  color: var(--primary-text-color);
+}
+
+/* BlogList.jsx & BlogCard.jsx */
+.blog-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.blog-card {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-image-wrapper {
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: 0.5rem;
+
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem; /* 안쪽 여백 추가 */
+}
+
+.card-image {
+  width: 70%;
+  height: 70%;
+
+  transition: transform 0.3s ease;
+}
+
+.blog-card:hover .card-image {
+  transform: scale(1.05);
+}
+
+.card-category {
+  color: var(--accent-color);
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+
+.card-excerpt {
+  color: var(--secondary-text-color);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* Footer.jsx */
+.footer {
+  padding: 0.8rem 0;
+  border-top: 0.1px solid var(--border-color);
+  text-align: center;
+  color: var(--secondary-text-color);
+  font-size: 0.875rem;
+}
+
+/* QuizModal.jsx & Footer Quiz Button */
+.quiz-button {
+  background-color: var(--accent-color);
+  color: white;
+  border: none;
+  padding: 0.75rem 1rem;
+  border-radius: 9999px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-top: 1.5rem;
+  width: 20%;
+}
+
+.quiz-button:hover {
+  background-color: #2563eb;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.modal-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 2.5rem;
+  border-radius: 0.75rem;
+  width: 90%;
+  max-width: 500px;
+  text-align: center;
+  position: relative; /* close button position */
+  transform: translateY(-20px);
+  transition: transform 0.3s ease;
+}
+
+.modal-overlay.open .modal-content {
+  transform: translateY(0);
+}
+
+.modal-content h2 {
+  font-size: 1.75rem;
+  margin-bottom: 1rem;
+  color: var(--primary-text-color);
+}
+
+.modal-content p {
+  color: var(--secondary-text-color);
+  margin-bottom: 2rem;
+}
+
+.quiz-options {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.quiz-options button {
+  font-size: 2rem;
+  width: 100px;
+  height: 100px;
+  border-radius: 0.5rem;
+  border: 2px solid var(--border-color);
+  cursor: pointer;
+  background-color: white;
+  transition: all 0.2s;
+}
+
+.quiz-options button:hover:not(:disabled) {
+  transform: translateY(-5px);
+  border-color: var(--accent-color);
+}
+
+.quiz-options button:disabled {
+  cursor: default;
+  opacity: 0.7;
+}
+
+.modal-close-button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  cursor: pointer;
+  color: var(--secondary-text-color);
+}
+
+.quiz-result-message {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+
+.quiz-result-message.correct {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.quiz-result-message.wrong {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+
+.next-quiz-button {
+  background-color: #f3f4f6;
+  color: var(--primary-text-color);
+  border: 1px solid var(--border-color);
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 1.5rem;
+}
+
+/* QuizSection.jsx */
+.quiz-section {
+  background-color: #f8fafc;
+  padding: 3rem 0;
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+  margin: 2rem 0 0 0;
+}
+
+.quiz-section h2 {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: var(--primary-text-color);
+  margin-bottom: 0.5rem;
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.quiz-section p {
+  color: var(--secondary-text-color);
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 1.125rem;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+.quiz-section .quiz-button {
+  display: block;
+  margin: 0 auto;
+  background-color: var(--accent-color);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 0.75rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.quiz-section .quiz-button:hover {
+  background-color: #2563eb;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .blog-list {
+    grid-template-columns: repeat(2, 1fr);
   }
-  to {
-    transform: rotate(360deg);
+}
+
+@media (max-width: 640px) {
+  .blog-list {
+    grid-template-columns: 1fr;
   }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+  header .header-menu {
+    display: none; /* 모바일에서는 메뉴 숨김 처리 */
   }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
 }

@@ -2,7 +2,7 @@
 import React, { useState } from "react"; // useState import
 import "./App.css";
 import Header from "./components/Header";
-import BlogList from "./components/BlogLIst";
+import BlogList from "./components/BlogList";
 import QuizSection from "./components/QuizSection";
 import Footer from "./components/Footer";
 import QuizModal from "./components/QuizModal"; // QuizModal import

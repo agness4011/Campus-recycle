@@ -306,6 +306,9 @@ body {
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.2s ease;
+  white-space: nowrap;
+  min-width: fit-content;
+  width: auto;
 }
 
 .quiz-section .quiz-button:hover {
@@ -325,5 +328,12 @@ body {
   }
   header .header-menu {
     display: none; /* 모바일에서는 메뉴 숨김 처리 */
+  }
+  
+  .quiz-section .quiz-button {
+    white-space: nowrap;
+    min-width: 120px;
+    font-size: 1rem;
+    padding: 0.875rem 1.5rem;
   }
 }
